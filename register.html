@@ -36,43 +36,34 @@
         </nav>
     </header>
     <!--Main site starts here. It includes a banner, main part with images and links and some information-->
-    <div class="main">
-        <div class="banner">
-            <h1>SANLP</h1>
-            <hr>
-            <img src="index_files/nlpBanner.png" alt="banner">
-            <br>
-            <hr>
-        </div>
-        <!-- <div class="slider">
-            <div class="container">
-                <img class="event_img" src="index_files/search.png" alt="event">
-                <div class="middle">
-                    <div class="img_text"><a href="searchKeyword.html">Search Keyword</a></div>
+    <div class="container-fluid d-flex justify-content-center" style="margin-top: 10%;">
+        <!-- Stack the columns on mobile by making one full-width and the other half-width -->
+        <div class="col-6 col-md-4">
+            <form>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                 </div>
-            </div>
-            <div class="container">
-                <img class="gallery_img" src="index_files/pricing.png" alt="gallery">
-                <div class="middle">
-                    <div class="img_text"><a href="pricing.html">Pricing</a></div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1">
                 </div>
-            </div>
-            <br>
-            <hr>
-        </div> -->
-
-        <div>
-            <h3>Main</h3>
-            <p>Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit
-                amet
-                Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit
-                amet
-                Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet
-            </p>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Keywords</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Seperate the keywords with ','">
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
         </div>
     </div>
+    </div>
     <!--This is my footer-->
-    <footer>
+    <footer style="margin-top: 10%;">
         <a href="index.html">Homepage</a>
         <a href="searchKeyword.html">Search Keyword</a>
         <a href="pricing.html">Pricing</a>
@@ -80,8 +71,6 @@
         <a href="contact.html">Contact Us</a>
         <p>© 2022 - SANLP | All rights reserved.</p>
     </footer>
-
-
 
 </body>
 
