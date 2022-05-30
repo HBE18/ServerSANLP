@@ -10,7 +10,7 @@ export interface IUserInsert{
 }
 
 export interface IUserPass{
-    id : number,
+    id ?: number,
     password : string
 }
 
