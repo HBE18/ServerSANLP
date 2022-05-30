@@ -1,6 +1,6 @@
 import express from 'express';
 import { HttpCode } from '../config';
-import { getPasswordByEmail, getUserByEmail } from '../db/functions';
+import { getPasswordByEmail, getUserByEmail, insertUser } from '../db/functions';
 import { } from '../models/userModels';
 
 
@@ -62,3 +62,30 @@ export async function login(
     }
 }
 
+export async function register(
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+){
+    const emailQuery = req.query.email;
+    const passwordQuery = req.query.password;
+
+    if (typeof emailQuery === 'string' && typeof passwordQuery === 'string') {
+        const user = {
+            email : emailQuery,
+            password : passwordQuery
+        }
+        const status = await insertUser(user);
+
+        if(status === 'OK'){
+            next();
+        }
+        else{
+            res.status(HttpCode.InternalError).json({
+                'error' : status
+            });
+        }
+    } else {
+        res.sendStatus(HttpCode.BadRequest);
+    }
+}

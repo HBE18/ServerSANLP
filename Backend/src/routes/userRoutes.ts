@@ -1,11 +1,14 @@
 import express from 'express';
 import { HttpCode } from '../config';
-import { IUserInsert } from '../models/userModels';
-const path = require('path');
+import { checkUserExists, login, register, validateUserNotExist } from '../middlewares/middleware';
 const userRouter = express.Router();
-var userStatus = {
+
+var user = {
+    'email' : '',
+    'password' : '',
     'auth' : false
 }
+
 userRouter
 .route('/user')
 .get((req,res) => {
@@ -15,42 +18,44 @@ userRouter
 userRouter
 .route('/auth')
 .get((req,res) => {
-    res.status(200).json(userStatus);
+    res.status(200).json({'auth' :user.auth});
 })
 
 userRouter
 .route('/login')
-.post((req,res) => {
-    userStatus.auth = true;
+.post(checkUserExists,login,(req,res) => {
+    // Check user credentials with middlewares (Authenticate) +
+    // Generate Session or Send Token to User or save user to server (Authorize) -
+    user.auth = true;
     const email = req.query.email;
     const password = req.query.password;
-    console.log(`Email = ${email} , Password = ${password}`);
+    console.log(`Email = ${email} , Password = ${password} logged in.`);
     res.json({
         'auth' : true,
     });
-    console.log('Logged in!');
-    // Check user credentials with middlewares (Authenticate)
-    // Generate Session or Send Token to User or save user to server (Authorize)
-
 })
 
 userRouter
 .route('/register')
-.post((req,res) => {
-    // Check if user exists by middleware
-    // Create user and insert into db 
+.post(validateUserNotExist,register,(req,res) => {
+    // Check if user exists by middleware +
+    // Create user and insert into db +
     res.send('false');
 })
 
 userRouter
 .route('/logout')
 .post((req,res) => {
-    console.log('Log Out.');
-    userStatus.auth = false;
-    // Check if user exists, if no redirect to login if yes delete user from server or close session or expire token
+    // Check if user exists, if no redirect to login if yes delete user from server or close session or expire token (LAter)
+    user.auth = false;
+    user.email = '';
+    user.password = '';
+    
     res.json({
         'auth' : false,
-    });
+    }
+    );
+    console.log('Log Out.');
 })
 
 export default userRouter;

@@ -11,6 +11,7 @@ export enum HttpCode
     Unauthorized = 401,
     NotFound = 404,
     Forbidden = 403,
+    InternalError = 500,
     Timeout = 504
 }
 
