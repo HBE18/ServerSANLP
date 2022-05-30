@@ -21,6 +21,7 @@ const func = async () => {
             resultPage.style.visibility = "visible";
             ul.removeChild(login);
             register.setAttribute("href", "index.html");
+            register.setAttribute("onClick","clk()");
             register.innerHTML = "Logout";
         }
     })

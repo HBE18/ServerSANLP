@@ -13,5 +13,9 @@ addEventListener("submit", async (ev) => {
         if (res.status === 200) {
             window.location.replace("/index.html");
         }
+        else if(res.status === 404)
+        {
+            alert("Email or password is invalid");
+        }
     })
 })
