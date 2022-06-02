@@ -24,6 +24,7 @@
     "cors": "^2.8.5",
     "express": "^4.18.1",
     "pg": "^8.7.3",
+    "python-shell": "^3.0.1",
     "typescript": "^4.7.2"
   },
   "devDependencies": {
