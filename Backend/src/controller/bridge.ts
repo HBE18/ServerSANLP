@@ -1,5 +1,5 @@
 import { Options, PythonShell } from 'python-shell';
-
+/*
 export default function runScript(keyword : string) {
     const options : Options = {
         mode : "text",
@@ -19,3 +19,4 @@ export default function runScript(keyword : string) {
         
     })
 }
+*/
