@@ -43,6 +43,29 @@ for (let pair of queryString.entries()) {
 }
 */
 
+
+const keyword = document.querySelector("#searchKeyword");
+
+addEventListener("submit", async (ev) => {
+    ev.preventDefault();
+    await fetch(`http://25.33.228.221:3000/submit?keyword=${keyword.value}`, {
+        method: "POST",
+        mode: "cors",
+        headers: {
+            "Access-Control-Allow-Origin": "*"
+        }
+    }).then(res => {
+        if (res.status === 200) {
+            window.location.replace("/searchKeyword.html");
+        }
+        else if(res.status === 404)
+        {
+            alert("Couldn't sent keyword. PLease try again!");
+        }
+    })
+})
+
+/*
 let search = window.location.search.slice(1);
 if (search === "") {
 
@@ -82,6 +105,8 @@ else {
 
     }
 }
+*/
+
 /*
 
 fetch(`/http://25.33.228.221:3000/${x}`, {
@@ -100,3 +125,4 @@ fetch(`/http://25.33.228.221:3000/${x}`, {
 });
 
 */
+
