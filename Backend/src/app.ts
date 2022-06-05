@@ -14,7 +14,7 @@ app.use(cors({
     "optionsSuccessStatus": 204
   }));
 app.use(userRoutes);
-app.use(serverRoutes)
+app.use(serverRoutes);
 
 const port = ExpressConfig.port|| 3000;
 const message = `Server is up on http://localhost:${port}`;

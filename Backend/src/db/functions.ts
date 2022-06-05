@@ -100,7 +100,7 @@ export async function updatePassword(user : IUserInsert) : Promise<void> {
 
 export async function insertKeyword(keyword: string) : Promise<string>{
     const result = await pool.query(`INSERT INTO keywords (keyword)
-    VALUES (ARRAY['$1'])`,[keyword]);
+    VALUES ($1)`,[keyword]);
     if (result) {
         return 'OK';
     } else {

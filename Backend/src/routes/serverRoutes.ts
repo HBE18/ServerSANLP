@@ -9,9 +9,11 @@ serverRouter
 .route('/submit')
 .post(async (req,res) => {
     var keyword='';
-    if(req.query.keyword == 'string'){
+    if(typeof req.query.keyword === 'string'){
         keyword = req.query.keyword;
         //runScript(keyword);
+        console.log(keyword);
+        
         const response = await insertKeyword(keyword);
         if (response === 'OK') {
             res.status(HttpCode.Success).json({
