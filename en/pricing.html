@@ -32,14 +32,53 @@
         </nav>
     </header>
     <!--Main includes some images-->
-    <div class="main">
-        <h1>Pricing</h1>
-        <hr>
-        <p>pricing part without bootstrap will be inject here</p>
-        <br>
-        <a href="#top">Go top</a>
-        <hr>
-    </div>  
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center" style="margin-top: 6%; padding-bottom: 6%; padding-left: 3%; padding-right: 3%">
+      <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm">
+          <div class="card-header py-3">
+            <h4 class="my-0 fw-normal">Basic</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">$5<small class="text-muted fw-light">/mo</small></h1>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>1 keyword</li>
+              <li>Email support</li>
+            </ul>
+            <button type="button" onclick="location.href = 'register.html';" class="w-100 btn btn-lg btn-outline-primary">Sign up for Basic plan</button>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm">
+          <div class="card-header py-3">
+            <h4 class="my-0 fw-normal">Pro</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">$15<small class="text-muted fw-light">/mo</small></h1>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>5 keywords</li>
+              <li>Priority email support</li>
+            </ul>
+            <button type="button" onclick="location.href = 'register.html';" class="w-100 btn btn-lg btn-primary">Sign up for Pro plan</button>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm border-primary">
+          <div class="card-header py-3 text-white bg-primary border-primary">
+            <h4 class="my-0 fw-normal">Enterprise</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">Special Pricing<small class="text-muted fw-light"></small></h1>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>User defined # of keywords</li>
+              <li>Phone and email support</li>
+            </ul>
+            <button type="button" onclick="location.href = 'contact.html';" class="w-100 btn btn-lg btn-primary">Contact us</button>
+          </div>
+        </div>
+      </div>
+    </div> 
     <!--This is my footer-->
     <footer>
         <a href="index.html">Homepage</a>
