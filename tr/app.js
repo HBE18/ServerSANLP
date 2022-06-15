@@ -11,7 +11,7 @@ const func = async () => {
         mode: "cors",
         headers: {
             "Access-Control-Allow-Origin": "*"
-        }
+        } 
     }).then(res => {
         return res.json();
     }).then(res=>{
@@ -22,7 +22,12 @@ const func = async () => {
             ul.removeChild(login);
             register.setAttribute("href", "index.html");
             register.setAttribute("onClick","clk()");
-            register.innerHTML = "Logout";
+            register.innerHTML = "Çıkış Yap";
+            register.style.visibility = "visible";
+        }
+        else{
+            login.style.visibility = "visible";
+            register.style.visibility = "visible";
         }
     })
 }

@@ -15,16 +15,16 @@ addEventListener("submit", async (ev) => {
             }
         }).then(res => {
             if (res.status === 200) {
-                window.location.replace("/login.html");
+                window.location.replace("login.html");
             }
             else if (res.status === 400) {
                 if (res.error) {
                     console.error(res.error);
                 }
                 else {
-                    answer = window.confirm("That user exists. Do you want to login?");
+                    answer = window.confirm("Böyle bir kullanıcı mevcut. Giriş sayfasına gitmek ister misiniz?");
                     if (answer) {
-                        window.location.replace("/login.html");
+                        window.location.replace("login.html");
                     }
                 }
 
@@ -36,6 +36,6 @@ addEventListener("submit", async (ev) => {
         })
     }
     else {
-        alert("Passwords are different");
+        alert("Şifreler uyumsuz");
     }
 })

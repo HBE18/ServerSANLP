@@ -10,12 +10,19 @@ addEventListener("submit", async (ev) => {
             "Access-Control-Allow-Origin": "*"
         }
     }).then(res => {
-        if (res.status === 200) {
-            window.location.replace("/index.html");
+        let stat = res.status;
+        if (stat === 200) {
+            window.location.replace("index.html");
         }
-        else if(res.status === 404)
+        else if(stat === 404)
         {
-            alert("Email or password is invalid");
+            alert("E-posta ya da şifre hatalı");
+        }
+        else if(stat === 400) {
+            console.error("E-posta ya da şifre string değil");
+        }
+        else if(stat === 401) {
+            alert("Bu kullanıcının şifresi farklı");
         }
     })
 })

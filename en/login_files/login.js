@@ -10,12 +10,19 @@ addEventListener("submit", async (ev) => {
             "Access-Control-Allow-Origin": "*"
         }
     }).then(res => {
-        if (res.status === 200) {
-            window.location.replace("/index.html");
+        let stat = res.status;
+        if (stat === 200) {
+            window.location.replace("index.html");
         }
-        else if(res.status === 404)
+        else if(stat === 404)
         {
             alert("Email or password is invalid");
+        }
+        else if(stat === 400) {
+            console.error("Email or password is not string");
+        }
+        else if(stat === 401) {
+            alert("This user's password is different");
         }
     })
 })
