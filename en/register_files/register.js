@@ -4,9 +4,15 @@ const pass_confirm = document.querySelector("#exampleInputPassword2");
 const body = document.body;
 const progressBar = document.querySelector("#progressbar");
 const footer = document.getElementsByTagName("footer")[0];
-let email, password, plan, keywords;
+const user = {
+  email: "",
+  password: "",
+  plan: "",
+  keywords: [],
+};
 
-function firstComp() {
+async function firstComp() {
+  event.preventDefault();
   if (user_password.value != pass_confirm.value) {
     alert("Passwords are different");
     return;
@@ -15,39 +21,58 @@ function firstComp() {
     alert("Email and Password fields cannot be empty");
     return;
   }
-  email = user_email.value;
-  password = user_password.value;
-  const disDiv = document.createElement("div");
-  const icDiv = document.createElement("div");
-  disDiv.id = "Second";
-  disDiv.style = "margin-left: 25%; margin-top: 10%;";
-  const formElement = document.createElement("form");
-  icDiv.className = "row row-cols-1 row-cols-md-3 mb-3 text-center";
-  icDiv.innerHTML =
-    '<div class="form-check form-check-inline">' +
-    '<div class="col"><div class="card mb-4 rounded-3 shadow-sm"><div class="card-header py-3"><h4 class="my-0 fw-normal">Basic</h4></div><div class="card-body"><h1 class="card-title pricing-card-title">$5<small class="text-muted fw-light">/mo</small></h1><ul class="list-unstyled mt-3 mb-4"><li>1 keyword</li><li>Email support</li><li><input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" style="margin-left:48%; margin-top:5%;" checked></li></ul></div></div></div>' +
-    "</div>" +
-    '<div class="form-check form-check-inline">' +
-    '<div class="col"><div class="card mb-4 rounded-3 shadow-sm"><div class="card-header py-3"><h4 class="my-0 fw-normal">Pro</h4></div><div class="card-body"><h1 class="card-title pricing-card-title">$15<small class="text-muted fw-light">/mo</small></h1><ul class="list-unstyled mt-3 mb-4"><li>5 keywords</li><li>Priority email support</li><li><input class="form-check-input" type="radio" name="inlineRadioOptions" style="margin-left:48%; margin-top:5%;" id="inlineRadio2" value="option2"></li></ul></div></div></div>' +
-    "</div>";
+  user.email = user_email.value;
+  user.password = user_password.value;
+  await fetch("http://25.33.228.221:3000/checkuser", {
+    method: "POST",
+    mode: "cors",
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(user),
+  }).then((res) => {
+    stat = res.status;
+    if (stat === 200) {
+      const disDiv = document.createElement("div");
+      const icDiv = document.createElement("div");
+      disDiv.id = "Second";
+      disDiv.style = "margin-left: 25%; margin-top: 10%;";
+      const formElement = document.createElement("form");
+      icDiv.className = "row row-cols-1 row-cols-md-3 mb-3 text-center";
+      icDiv.innerHTML =
+        '<div class="form-check form-check-inline">' +
+        '<div class="col"><div class="card mb-4 rounded-3 shadow-sm"><div class="card-header py-3"><h4 class="my-0 fw-normal">Basic</h4></div><div class="card-body"><h1 class="card-title pricing-card-title">$5<small class="text-muted fw-light">/mo</small></h1><ul class="list-unstyled mt-3 mb-4"><li>1 keyword</li><li>Email support</li><li><input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" style="margin-left:48%; margin-top:5%;" checked></li></ul></div></div></div>' +
+        "</div>" +
+        '<div class="form-check form-check-inline">' +
+        '<div class="col"><div class="card mb-4 rounded-3 shadow-sm"><div class="card-header py-3"><h4 class="my-0 fw-normal">Pro</h4></div><div class="card-body"><h1 class="card-title pricing-card-title">$15<small class="text-muted fw-light">/mo</small></h1><ul class="list-unstyled mt-3 mb-4"><li>5 keywords</li><li>Priority email support</li><li><input class="form-check-input" type="radio" name="inlineRadioOptions" style="margin-left:48%; margin-top:5%;" id="inlineRadio2" value="option2"></li></ul></div></div></div>' +
+        "</div>";
 
-  const button = document.createElement("a");
-  button.style = "margin-top: 1%; margin-left: 24%; width: 240px; height: 40px;";
-  button.className = "btn btn-primary";
-  button.textContent = "Next";
-  button.addEventListener("click", secondComp);
-  formElement.appendChild(icDiv);
-  formElement.appendChild(button);
-  disDiv.appendChild(formElement);
-  const first = document.querySelector("#First");
-  body.removeChild(first);
-  body.removeChild(footer);
-  body.appendChild(disDiv);
-  body.appendChild(footer);
-  progressBar.style.width = "50%";
-  const list = progressBar.classList;
-  list.remove("bg-danger");
-  list.add("bg-warning");
+      const button = document.createElement("a");
+      button.style =
+        "margin-top: 1%; margin-left: 24%; width: 240px; height: 40px;";
+      button.className = "btn btn-primary";
+      button.textContent = "Next";
+      button.addEventListener("click", secondComp);
+      formElement.appendChild(icDiv);
+      formElement.appendChild(button);
+      disDiv.appendChild(formElement);
+      const first = document.querySelector("#First");
+      body.removeChild(first);
+      body.removeChild(footer);
+      body.appendChild(disDiv);
+      body.appendChild(footer);
+      progressBar.style.width = "50%";
+      const list = progressBar.classList;
+      list.remove("bg-danger");
+      list.add("bg-warning");
+    }
+    else if(res.status === 400){
+        if (confirm("That user exists. Do you want to login?")) {
+          window.location.replace("login.html");
+        }
+    }
+  });
 }
 
 function secondComp() {
@@ -62,10 +87,11 @@ function secondComp() {
   const formElement = document.createElement("form");
   icDiv.className = "row row-cols-1 row-cols-md-3 mb-3 text-center";
   if (basicPlan) {
-    plan = "Basic"
-    icDiv.innerHTML = '<div class="input-group flex-nowrap"><span class="input-group-text" id="addon-wrapping">#</span><input type="text" class="form-control keyword" placeholder="Keyword" aria-describedby="addon-wrapping" required></div>';
+    user.plan = "Basic";
+    icDiv.innerHTML =
+      '<div class="input-group flex-nowrap"><span class="input-group-text" id="addon-wrapping">#</span><input type="text" class="form-control keyword" placeholder="Keyword" aria-describedby="addon-wrapping" required></div>';
   } else {
-    plan = "Pro"
+    user.plan = "Pro";
     icDiv.innerHTML =
       '<div class="input-group flex-nowrap"><span class="input-group-text" id="addon-wrapping">#</span><input type="text" class="form-control keyword" placeholder="Keyword #1" aria-describedby="addon-wrapping" required></div>' +
       '<div class="input-group flex-nowrap" style= "margin-top: 3%;"><span class="input-group-text" id="addon-wrapping">#</span><input type="text" class="form-control keyword" placeholder="Keyword #2" aria-describedby="addon-wrapping" required></div>' +
@@ -75,7 +101,8 @@ function secondComp() {
   }
 
   const button = document.createElement("a");
-  button.style = "margin-top: 3%; margin-left: 24%; width: 240px; height: 40px;";
+  button.style =
+    "margin-top: 3%; margin-left: 24%; width: 240px; height: 40px;";
   button.className = "btn btn-primary";
   button.textContent = "Next";
   button.addEventListener("click", thirdComp);
@@ -93,11 +120,10 @@ function secondComp() {
 function thirdComp() {
   const keyw = document.getElementsByClassName("keyword");
   let empty = true;
-  keywords = [];
   for (let element of keyw) {
     if (element.value != "") {
       empty = false;
-      keywords.push(element.value);
+      user.keywords.push(element.value);
     }
   }
   if (empty) {
@@ -113,7 +139,15 @@ function thirdComp() {
   disDiv.style = "margin-left: 40%; margin-top: 5%;";
   const formElement = document.createElement("form");
   icDiv.className = "row row-cols-1 row-cols-md-3 mb-3 text-center";
-  icDiv.innerHTML = '<div class="mb-3"><label for="card-num" class="form-label">Card Number</label><input type="tel" maxlength=16 class="form-control" id="card-num" required><label style= "margin-top: 3%;" for="card-name" class="form-label">Cardholder Name</label><input type="text" class="form-control" id="card-name" required></input><label style= "margin-top: 3%;" for="card-exp" class="form-label">Expiry Date</label><input type="text" pattern="(?:0[1-9]|1[0-2])/[0-9]{2}" class="form-control" id="card-exp" required></input><label style= "margin-top: 3%;" for="card-cvv" class="form-label">CVV</label><input type="tel" maxlength=3 class="form-control" id="card-cvv" required></input></div>';
+  // icDiv.innerHTML = '<div class="mb-3"><label for="card-num" class="form-label">Card Number</label><input type="tel" maxlength=16 class="form-control" id="card-num" required><label style= "margin-top: 3%;" for="card-name" class="form-label">Cardholder Name</label><input type="text" class="form-control" id="card-name" required></input><label style= "margin-top: 3%;" for="card-exp" class="form-label">Expiry Date</label><input type="text" pattern="(?:0[1-9]|1[0-2])/[0-9]{2}" class="form-control" id="card-exp" required></input><label style= "margin-top: 3%;" for="card-cvv" class="form-label">CVV</label><input type="tel" maxlength=3 class="form-control" id="card-cvv" required></input></div>';
+  const buyBut = document.createElement("a");
+  buyBut.style = "margin-top: 3%; margin-left: 5%; width: 240px; height: 40px;";
+  buyBut.className = "btn btn-success";
+  buyBut.textContent = "Buy";
+  buyBut.addEventListener("click", () => {
+    alert("Payment is successfull");
+  });
+  icDiv.appendChild(buyBut);
   const button = document.createElement("a");
   button.addEventListener("click", registerUser);
   button.style = "margin-top: 3%; margin-left: 5%; width: 240px; height: 40px;";
@@ -132,19 +166,13 @@ function thirdComp() {
 
 async function registerUser(ev) {
   ev.preventDefault();
-  reqBody = {
-    email: email,
-    password: password,
-    plan: plan,
-    keywords: keywords
-  }
   await fetch("http://25.33.228.221:3000/register", {
     method: "POST",
     mode: "cors",
     headers: {
-      "Access-Control-Allow-Origin": "*"
+      "Access-Control-Allow-Origin": "*",
     },
-    body: JSON.stringify(reqBody)
+    body: JSON.stringify(reqBody),
   }).then((res) => {
     if (res.status === 200) {
       window.location.replace("login.html");

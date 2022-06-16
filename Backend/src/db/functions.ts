@@ -33,7 +33,7 @@ export async function getUserById(id: string): Promise<IUserPartial | void> {
     try {
         const {rows, rowCount} = await pool.query<IUserInsert>(`SELECT email, password FROM users WHERE id = $1`, [id]);
             if(rowCount === 0){
-                return undefined;
+                return ;
             }
             else{
                 return rows[0];
@@ -44,14 +44,14 @@ export async function getUserById(id: string): Promise<IUserPartial | void> {
     }
 }
 
-export async function getUserByEmail(email: string): Promise<IUserInsert | void> {
+export async function getUserByEmail(email: string): Promise<IUserInsert | boolean> {
     try {
         const {rows, rowCount} = await pool.query<{
             email : string;
             password : string;
         }>(`SELECT email, password FROM users WHERE email = $1`, [email]);
             if(rowCount === 0){
-                return undefined;
+                return false;
             }
             else{
                 return rows[0];

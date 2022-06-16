@@ -27,12 +27,18 @@ userRouter
     // Check user credentials with middlewares (Authenticate) +
     // Generate Session or Send Token to User or save user to server (Authorize) -
     user.auth = true;
-    const email = req.query.email;
-    const password = req.query.password;
+    const email = req.body.email;
+    const password = req.body.password;
     console.log(`Email = ${email} , Password = ${password} logged in.`);
     res.json({
         'auth' : true,
     });
+})
+
+userRouter
+.route('/checkuser')
+.post(validateUserNotExist, (req,res) => {
+    res.status(HttpCode.Success);
 })
 
 userRouter

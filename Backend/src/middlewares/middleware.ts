@@ -10,7 +10,8 @@ export async function checkUserExists(
     next : express.NextFunction,
 )
 {
-    const emailQuery  = req.query.email;
+    const emailQuery  = req.body.email;
+
     if( typeof emailQuery === 'string' ){
         const user = await getUserByEmail(emailQuery);
         (user) ? next() : res.status(HttpCode.NotFound).json({
@@ -28,8 +29,12 @@ export async function validateUserNotExist(
     next: express.NextFunction
 ) {
     const emailQuery = req.query.email;
+    console.log(typeof emailQuery);
+    
     if(typeof emailQuery === 'string'){
         const user = await getUserByEmail(emailQuery);
+        console.log(user);
+        
         (user) ? res.status(HttpCode.BadRequest).json({'error' : 'Email already exists'}) : next();
     }
     else{
@@ -42,8 +47,8 @@ export async function login(
     res: express.Response,
     next: express.NextFunction
 ) {
-    const emailQuery = req.query.email;
-    const passwordQuery = req.query.password;
+    const emailQuery = req.body.email;
+    const passwordQuery = req.body.password;
 
     if (typeof emailQuery === 'string' && typeof passwordQuery === 'string') {
         const user = {
@@ -67,8 +72,8 @@ export async function register(
     res: express.Response,
     next: express.NextFunction
 ){
-    const emailQuery = req.query.email;
-    const passwordQuery = req.query.password;
+    const emailQuery = req.body.email;
+    const passwordQuery = req.body.password;
 
     if (typeof emailQuery === 'string' && typeof passwordQuery === 'string') {
         const user = {
