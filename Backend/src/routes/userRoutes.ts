@@ -1,9 +1,11 @@
 import express from 'express';
 import { HttpCode } from '../config';
+import { getKeywords } from '../db/functions';
 import { checkUserExists, login, register, validateUserNotExist } from '../middlewares/middleware';
 const userRouter = express.Router();
 
 var user = {
+    'id' : 0,
     'email' : '',
     'password' : '',
     'auth' : false
@@ -22,23 +24,40 @@ userRouter
 })
 
 userRouter
+.route("/getuser")
+.get((req,res) => {
+    res.status(200).json({'id' : user.id});
+})
+
+userRouter
+.route("/getresults:id")
+.get(async (req,res) => {
+    const uid :number = Number(req.params.id);
+    const response = await getKeywords(uid);
+    // Define a middleware to get data from mongo with keywords from postgres
+})
+
+userRouter
 .route('/login')
 .post(checkUserExists,login,(req,res) => {
     // Check user credentials with middlewares (Authenticate) +
     // Generate Session or Send Token to User or save user to server (Authorize) -
     user.auth = true;
-    const email = req.body.email;
-    const password = req.body.password;
-    console.log(`Email = ${email} , Password = ${password} logged in.`);
+    console.log(res.locals.id.id);
+    user.id = res.locals.id.id;
+    user.email = req.body.email;
+    user.password = req.body.password;
+    console.log(`ID = ${user.id} Email = ${user.email} , Password = ${user.password} logged in.`);
     res.json({
         'auth' : true,
     });
 })
 
+
 userRouter
 .route('/checkuser')
 .post(validateUserNotExist, (req,res) => {
-    res.status(HttpCode.Success);
+    res.sendStatus(HttpCode.Success);
 })
 
 userRouter

@@ -1,3 +1,5 @@
+import { QueryResult } from "pg"
+
 export interface IUser{
     id : number,
     email : string,
@@ -12,6 +14,10 @@ export interface IUserInsert{
 export interface IUserPass{
     id ?: number,
     password : string
+}
+export interface IUserKeywords{
+    id ?: number,
+    keywords : QueryResult<any>
 }
 
 export interface IUserPartial extends Partial<IUser>{}

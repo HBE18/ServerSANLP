@@ -44,6 +44,21 @@ export async function getUserById(id: string): Promise<IUserPartial | void> {
     }
 }
 
+export async function getId(email:string): Promise<IUserPartial | boolean> {
+    try {
+        const {rows, rowCount} = await pool.query<IUserPartial>(`SELECT id FROM users WHERE email = $1`,[email]);
+        if(rowCount === 0){
+            return false;
+        }
+        else{
+            return rows[0];
+        }
+    } catch (error) {
+        console.error(error);
+        throw(error);
+    }
+}
+
 export async function getUserByEmail(email: string): Promise<IUserInsert | boolean> {
     try {
         const {rows, rowCount} = await pool.query<{
@@ -106,4 +121,9 @@ export async function insertKeyword(keyword: string) : Promise<string>{
     } else {
         return 'Problem';
     }
+}
+
+export async function getKeywords(id: number) : Promise<QueryResult<any> | boolean> {
+    const result = await pool.query(`SELECT  keyword FROM WHERE $1 = ANY(ids)`,[id]);
+    return (result) ?  result : false;
 }

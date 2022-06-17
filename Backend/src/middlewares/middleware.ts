@@ -1,13 +1,15 @@
 import express from 'express';
 import { HttpCode } from '../config';
-import { getPasswordByEmail, getUserByEmail, insertUser } from '../db/functions';
+import { getId, getPasswordByEmail, getUserByEmail, insertUser } from '../db/functions';
 import { } from '../models/userModels';
+
+
 
 
 export async function checkUserExists(
     req : express.Request,
     res : express.Response,
-    next : express.NextFunction,
+    next : express.NextFunction
 )
 {
     const emailQuery  = req.body.email;
@@ -28,12 +30,10 @@ export async function validateUserNotExist(
     res: express.Response,
     next: express.NextFunction
 ) {
-    const emailQuery = req.query.email;
-    console.log(typeof emailQuery);
+    const emailQuery = req.body.email;
     
     if(typeof emailQuery === 'string'){
         const user = await getUserByEmail(emailQuery);
-        console.log(user);
         
         (user) ? res.status(HttpCode.BadRequest).json({'error' : 'Email already exists'}) : next();
     }
@@ -57,6 +57,7 @@ export async function login(
         }
         const realPassword = await getPasswordByEmail(user.email);
         if(user.password === realPassword.password){
+            res.locals.id = await getId(emailQuery);
             next();
         }
         else{
