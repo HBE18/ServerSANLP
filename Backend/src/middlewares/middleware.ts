@@ -95,3 +95,11 @@ export async function register(
         res.sendStatus(HttpCode.BadRequest);
     }
 }
+
+export async function generateResults(
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+){
+    
+}

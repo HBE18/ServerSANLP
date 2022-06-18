@@ -10,8 +10,8 @@
     <link rel="stylesheet" href="main.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <link rel="shortcut icon" href="images/sanlp.png" type="image/x-icon">
-    <title>Giriş Yap</title>
+    <link rel="shortcut icon" href="/images/sanlp.png" type="image/x-icon">
+    <title>Homepage</title>
 </head>
 
 <body>
@@ -19,42 +19,20 @@
     <header>
         <nav class="navbar navbar-expand-md bg-dark">
             <div class="container-fluid">
-              <div
-                class="collapse navbar-collapse ourDiv"
-                id="navbarSupportedContent"
-              >
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li class="nav-item">
-                    <a class="nav-link-active" href="index.html">Ana Sayfa</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link-active" href="pricing.html">Fiyatlandırma</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link-active" href="about.html">Hakkımızda</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link-active" href="contact.html">İletişim</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link-active" id="result-page" href="results.html"
-                      >Sonuçlar</a
-                    >
-                  </li>
-                </ul>
-                <a class="nav-item"
-                  ><a class="nav-link-active" id="log-but" href="login.html"
-                    >Giriş Yap</a
-                  ></a
-                >
-                <a class="nav-item"
-                  ><a class="nav-link-active" id="reg-but" href="register.html"
-                    >Üye Ol</a
-                  ></a
-                >
-              </div>
+                <div class="collapse navbar-collapse ourDiv" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link-active" href="index.html">Anasayfa</a></li>
+                        <li class="nav-item"><a class="nav-link-active" href="pricing.html">Fiyatlandırma</a></li>
+                        <li class="nav-item"><a class="nav-link-active" href="about.html">Hakkımızda</a></li>
+                        <li class="nav-item"><a class="nav-link-active" href="contact.html">İletişim</a></li>
+                        <li class="nav-item"><a class="nav-link-active" id="result-page" href="results.html">Sonuçlar</a></li>
+                        
+                    </ul>
+                    <a class="nav-item"><a class="nav-link-active" id="log-but" href="login.html">Giriş</a></a>
+                    <a class="nav-item"><a class="nav-link-active" id="reg-but" href="register.html">Kayıt Ol</a></a>                   
+                </div>
             </div>
-          </nav>
+        </nav>
     </header>
     <!--Main site starts here. It includes a banner, main part with images and links and some information-->
     <div class="container-fluid d-flex justify-content-center" style="margin-top: 10%;">
@@ -63,14 +41,16 @@
             <form>
                 <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">E-posta Adresi</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                <div id="emailHelp" class="form-text">E-postanız kimse ile paylaşılmayacaktır.</div>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="E-posta..">
+                <div id="emailHelp" class="form-text">Bilgilerinizi kimseyle paşlaşmayacağız.</div>
                 </div>
                 <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Şifre</label>
-                <input type="password" class="form-control" id="exampleInputPassword1">
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Şifre">
                 </div>
                 <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Check me out</label>
                 </div>
                 <button type="submit" class="btn btn-primary">Giriş Yap</button>
             </form>
@@ -79,12 +59,12 @@
     </div>     
     <!--This is my footer-->
     <footer style="margin-top: 10%;">
-        <a href="index.html">Ana Sayfa</a>
+        <a href="index.html">Anasayfa</a>
         <a href="searchKeyword.html">Kelime Ara</a>
-        <a href="pricing.html">Ödeme Planı</a>
+        <a href="pricing.html">Fiyatlandırma</a>
         <a href="about.html">Hakkımızda</a>
         <a href="contact.html">İletişim</a>
-        <a href="/">Dil Değiştir</a>
+        <a href="/">Dil Seçimi</a>
         <p>© 2022 - SANLP | Tüm hakları saklıdır.</p>
     </footer>
 

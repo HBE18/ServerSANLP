@@ -29,19 +29,12 @@ userRouter
     res.status(200).json({'id' : user.id});
 })
 
-userRouter
-.route("/getresults:id")
-.get(async (req,res) => {
-    const uid :number = Number(req.params.id);
-    const response = await getKeywords(uid);
-    // Define a middleware to get data from mongo with keywords from postgres
-})
+
+
 
 userRouter
 .route('/login')
 .post(checkUserExists,login,(req,res) => {
-    // Check user credentials with middlewares (Authenticate) +
-    // Generate Session or Send Token to User or save user to server (Authorize) -
     user.auth = true;
     console.log(res.locals.id.id);
     user.id = res.locals.id.id;

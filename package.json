@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@types/bson": "^4.2.0",
+    "bson": "^4.6.4"
+  }
+}
