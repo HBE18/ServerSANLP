@@ -1,7 +1,6 @@
 import express from 'express';
 import { Mongoose } from 'mongoose';
 import { HttpCode } from '../config';
-//import runScript from '../controller/bridge';
 import { getKeywords, insertKeyword } from '../db/functions';
 import { get_keywords } from '../db/mongo';
 
@@ -13,7 +12,6 @@ serverRouter
     var keyword='';
     if(typeof req.query.keyword === 'string'){
         keyword = req.query.keyword;
-        //runScript(keyword);
         console.log(keyword);
         
         const response = await insertKeyword(keyword);
@@ -43,9 +41,13 @@ serverRouter
 }) */
 
 serverRouter
-.route("/getresults:id")
-.get(async (req,res) => {
-    const uid : number = Number(req.params.id);
+.route("/getresults")
+.post(async (req,res) => {
+    console.log(req.query.id);
+    
+    const uid : number = Number(req.query.id);
+    console.log(uid);
+    
     const keywords = await getKeywords(uid);
     if (keywords) {
         const results = await get_keywords(keywords);

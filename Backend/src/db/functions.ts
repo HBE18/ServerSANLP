@@ -125,7 +125,7 @@ export async function insertKeyword(keyword: string) : Promise<string>{
 
 // export async function getKeywords(id: number) : Promise<QueryResult<any> | boolean> {
 export async function getKeywords(id: number) : Promise<QueryResult<any>> {
-    const result = await pool.query(`SELECT  keyword FROM WHERE $1 = ANY(ids)`,[id]);
+    const result = await pool.query(`SELECT  keyword FROM keywords WHERE $1 = ANY(ids)`,[id]);
     // return (result) ?  result : false;
     return result;
 

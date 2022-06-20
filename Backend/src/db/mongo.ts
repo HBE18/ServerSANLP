@@ -7,14 +7,14 @@ mongoose.connect('mongodb://localhost:27017/sanlp');
 const dataSchema = new Schema({
     keyword : {type : String},
     timestamp : Date,
-    twitter : Buffer,
-    yt_comment : Buffer,
-    yt_content : Buffer
+    twitter : String,
+    yt_comment : String,
+    yt_content : String
 })
 
 const dataRetrieve =mongoose.model('results',dataSchema);
 
-export async function getDoc(key : string):Promise<dataSch>{
+export async function getDoc(key :object):Promise<dataSch>{
 
     let data : dataSch={
         keyword : "",
@@ -23,21 +23,20 @@ export async function getDoc(key : string):Promise<dataSch>{
         yt_comment : "",
         yt_content :""
     };
-    const doc = await dataRetrieve.find({
-        keyword: key,
-    }).sort({
+    const doc = await dataRetrieve.find(key).sort({
         timestamp : 1});
     if(!doc){
         console.error('Document couldn\'t got');
     }
     else{
         const last = doc.pop();
+        
          data = {
             keyword : last.keyword,
             timestamp : last.timestamp,
-            twitter : last.twitter.toString('base64'),
-            yt_comment : last.yt_comment.toString('base64'),
-            yt_content : last.yt_content.toString('base64')
+            twitter : last.twitter,
+            yt_comment : last.yt_comment,
+            yt_content : last.yt_content
         };
     }
 
@@ -46,15 +45,29 @@ export async function getDoc(key : string):Promise<dataSch>{
 
 export async function get_keywords(results:QueryResult<any>){
     var dat : dataSch[] = [];
-    var result = {"results": dat};
-    results.rows.forEach(async (key)=>{
+    var result;
+/*     const resultes = await results.rows.forEach(async (key)=>{
         const res = await getDoc(key);
         if (!res) {
             return;
         }
         else{
-            result.results.push(res);
+            dat.push(res);
         }
-    });
+    }); */
+
+    for (const key of results.rows) {
+        const res = await getDoc(key);
+        if (!res) {
+            return;
+        }
+        else{
+            dat.push(res);
+        }
+    }
+
+
+    result = {results: dat};
+    console.log(result);
     return result;
 }
