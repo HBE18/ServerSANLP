@@ -43,7 +43,8 @@ async function getResults() {
         for(const result of results) {
           const myh1 = document.createElement("h1");
           let p = document.createElement("p");
-          p.textContent = Date(result.timestamp);
+          const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+          p.textContent = new Date(result.timestamp).toLocaleDateString('en-US', options);
           const div1 = document.createElement("div");
           myh1.textContent = result.keyword;
           myh1.className = "resultKeyword";
