@@ -3,7 +3,7 @@ import { Mongoose } from 'mongoose';
 import { HttpCode } from '../config';
 //import runScript from '../controller/bridge';
 import { getKeywords, insertKeyword } from '../db/functions';
-import { getDoc } from '../db/mongo';
+import { get_keywords } from '../db/mongo';
 
 const serverRouter = express.Router();
 
@@ -46,7 +46,16 @@ serverRouter
 .route("/getresults:id")
 .get(async (req,res) => {
     const uid : number = Number(req.params.id);
-    const keywords = getKeywords(uid);
+    const keywords = await getKeywords(uid);
+    if (keywords) {
+        const results = await get_keywords(keywords);
+        if(results) {
+            res.status(HttpCode.Success).json(results);
+        }
+    }
+    else {
+        res.sendStatus(HttpCode.BadRequest);
+    }
     
 })
 

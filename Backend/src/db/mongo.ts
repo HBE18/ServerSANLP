@@ -1,7 +1,6 @@
 import mongoose, { Document, Model, Schema } from "mongoose";
 import { QueryResult } from "pg";
 import { dataSch } from "../models/serverModels";
-import Date = module
 
 mongoose.connect('mongodb://localhost:27017/sanlp');
 
@@ -19,7 +18,7 @@ export async function getDoc(key : string):Promise<dataSch>{
 
     let data : dataSch={
         keyword : "",
-        timestamp : Date,
+        timestamp : new Schema.Types.Date(""),
         twitter : "",
         yt_comment : "",
         yt_content :""
@@ -44,8 +43,10 @@ export async function getDoc(key : string):Promise<dataSch>{
 
     return data;
 }
+
 export async function get_keywords(results:QueryResult<any>){
-    var result = {"results":[]};
+    var dat : dataSch[] = [];
+    var result = {"results": dat};
     results.rows.forEach(async (key)=>{
         const res = await getDoc(key);
         if (!res) {
@@ -54,6 +55,6 @@ export async function get_keywords(results:QueryResult<any>){
         else{
             result.results.push(res);
         }
-        return result;
-    })
+    });
+    return result;
 }
