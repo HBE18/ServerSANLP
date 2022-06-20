@@ -14,11 +14,11 @@ const user = {
 async function firstComp() {
   event.preventDefault();
   if (user_password.value != pass_confirm.value) {
-    alert("Passwords are different");
+    alert("Şifreler uyuşmuyor!");
     return;
   }
   if (user_email.value === "" || user_password.value === "") {
-    alert("Email and Password fields cannot be empty");
+    alert("E-posta ve şifre boş bırakılamaz!");
     return;
   }
   user.email = user_email.value;
@@ -145,7 +145,7 @@ function thirdComp() {
   buyBut.className = "btn btn-success";
   buyBut.textContent = "Satın Al";
   buyBut.addEventListener("click", () => {
-    alert("Payment is successfull");
+    alert("Ödeme başarılı.");
   });
   icDiv.appendChild(buyBut);
   const button = document.createElement("a");

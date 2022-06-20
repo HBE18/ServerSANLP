@@ -22,13 +22,13 @@ addEventListener("submit", async (ev) => {
         }
         else if(stat === 404)
         {
-            alert("Email or password is invalid");
+            alert("E-posta ya da şifre hatalı.");
         }
         else if(stat === 400) {
-            console.error("Email or password is not string");
+            console.error("E-posta ya da şifre string değil.");
         }
         else if(stat === 401) {
-            alert("This user's password is different");
+            alert("Kullanıcı şifresi farklı");
         }
     })
 })

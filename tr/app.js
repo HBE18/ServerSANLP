@@ -18,6 +18,9 @@ const func = async () => {
         isAuth =  res.auth;
         if(isAuth)
         {
+            let ourUl = document.querySelector("#nav-ul");
+            let pricing = document.querySelector("#pricing");
+            ourUl.removeChild(pricing);
             resultPage.style.visibility = "visible";
             ul.removeChild(login);
             register.setAttribute("href", "index.html");
